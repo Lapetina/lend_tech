@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "lend-tech"
+version = "0.1.0"
+description = "Dependencies from challenge at Lend"
+authors = ["Victor Lapetina"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.111.0"
+uvicorn = "^0.18.3"
+pydantic = "^2.7.4"
+jsonschema = "^4.22.0"
+logger = "^1.4"
+requests = "^2.32.3"
+ipython = "^8.25.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+ipdb = "^0.13.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
