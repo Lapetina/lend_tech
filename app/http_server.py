@@ -1,20 +1,16 @@
+import uvicorn
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
+from app.routers.climate_condition_router import climate_router
 
 API_VERSION = "v1"
 
 
 def create_app() -> FastAPI:
     app = FastAPI()
-    app.router.redirect_slashes = True
     # Configure Routers
-    app.include_router(example.router, prefix=f"/{API_VERSION}/account", dependencies=[])
-
-    @app.exception_handler(ExceptionMessageBuilder)
-    async def http_exception_handler(request, exc: ExceptionMessageBuilder):
-        return JSONResponse(
-            content={"title": exc.title, "message": exc.message},
-            status_code=exc.status_code,
-        )
+    app.include_router(climate_router, prefix=f"/{API_VERSION}/climate", dependencies=[])
 
     @app.exception_handler(ValueError)
     async def value_error_exception_handler(request, exc: ValueError):
@@ -31,7 +27,7 @@ def create_app() -> FastAPI:
                 status_code=400,
                 content={"title": "Campos inválidos", "message": message},
             )
-        except Exception as err:
+        except Exception:
             return JSONResponse(
                 status_code=400,
                 content={"title": "Campos inválidos", "message": "Campos informados inválidos!"},
@@ -43,4 +39,4 @@ def create_app() -> FastAPI:
 if __name__ == "__main__":
     the_app = create_app()
 
-    uvicorn.run(the_app, host="0.0.0.0", port=settings.http_api_port)
+    uvicorn.run(the_app, host="0.0.0.0", port=8000)
